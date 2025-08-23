@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Zap, Shield, Brain, Database } from "lucide-react";
 import ProductAnalysisMockup from "./ProductAnalysisMockup";
 import RiskDetectionMockup from "./RiskDetectionMockup";
+import { motion } from "framer-motion";
 
 const FeaturesSection = () => {
   return (
@@ -13,19 +14,40 @@ const FeaturesSection = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center bg-health-primary/10 rounded-full px-4 py-2 mb-4">
-            <Brain className="w-4 h-4 text-health-primary mr-2" />
-            <span className="text-health-primary font-medium text-sm">Smart Analysis</span>
+ <motion.div
+ initial={{ opacity: 0, y: 50 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.6 }}
+ viewport={{ once: true, amount: 0.3 }}
+ >
+ <div className="inline-flex items-center bg-health-primary/10 rounded-full px-4 py-2 mb-4">
+ <Brain className="w-4 h-4 text-health-primary mr-2" />
+ <span className="text-health-primary font-medium text-sm">Smart Analysis</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
+ </motion.div>
+ <motion.div
+ initial={{ opacity: 0, y: 50 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.6, delay: 0.2 }}
+ viewport={{ once: true, amount: 0.3 }}
+ >
+ <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
             Advanced Health Analysis for<br />
             Every <span className="text-health-primary">Product</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+ </motion.div>
+ <motion.div
+ initial={{ opacity: 0, y: 50 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.6, delay: 0.4 }}
+ viewport={{ once: true, amount: 0.3 }}
+ >
+ <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Our AI-powered extension scans product labels, ingredients, and health data to provide instant insights about benefits and risks.
           </p>
+ </motion.div>
         </div>
-
+        
         {/* Features Grid */}
         <div className="space-y-16 lg:space-y-24">
           {/* Real-Time Product Analysis Feature */}
