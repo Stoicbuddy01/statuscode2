@@ -1,73 +1,62 @@
-# Welcome to your Lovable project
+# E++ Browser Extension
 
-## Project info
+A browser extension that helps you identify beneficial and harmful food and healthcare products while shopping online.
 
-**URL**: https://lovable.dev/projects/f091cd97-f8b3-4855-92c9-a3bac13488f1
+## What it does
 
-## How can I edit this code?
+E++ scans product pages and gives you instant health ratings for:
+- Food products and ingredients
+- Healthcare items and supplements
+- Personal care products
 
-There are several ways of editing your application.
+Get quick **beneficial** ✅ or **harmful** ❌ ratings to make better health choices.
 
-**Use Lovable**
+## Installation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f091cd97-f8b3-4855-92c9-a3bac13488f1) and start prompting.
+### Chrome
+1. Download the extension from [Chrome Web Store](link-here)
+2. Click "Add to Chrome"
+3. Pin the extension to your toolbar
 
-Changes made via Lovable will be committed automatically to this repo.
+### Manual Install
+1. Download this repository
+2. Open Chrome and go to `chrome://extensions/`
+3. Turn on "Developer mode"
+4. Click "Load unpacked" and select the folder
 
-**Use your preferred IDE**
+## How to use
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Visit any shopping website (Amazon, grocery stores, etc.)
+2. Click the E++ icon in your browser toolbar
+3. See instant health ratings for products on the page
+4. Click on ratings for more details
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Features
 
-Follow these steps:
+- ✅ Instant product health analysis
+- 🏷️ Ingredient breakdown
+- ⚠️ Allergen warnings
+- 📊 Health scoring system
+- 🌙 Dark/light mode
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
 - TypeScript
+- HTML/Tailwind CSS
 - React
-- shadcn-ui
-- Tailwind CSS
+- MongoDB
+- Vultr
+- Chrome Extension APIs
+- Food/health databases
 
-## How can I deploy this project?
+## Screenshots
 
-Simply open [Lovable](https://lovable.dev/projects/f091cd97-f8b3-4855-92c9-a3bac13488f1) and click on Share -> Publish.
+*Add your extension screenshots here*
 
-## Can I connect a custom domain to my Lovable project?
+## License
 
-Yes, you can!
+MIT License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Contact
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Created by Penta.JS - feel free to contact us!

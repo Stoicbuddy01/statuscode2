@@ -4,6 +4,8 @@ import { Search, Zap, Shield } from "lucide-react";
 import HealthDashboardMockup from "./HealthDashboardMockup";
 import { motion } from "framer-motion";
 
+
+
 const HeroSection = () => {
   return (
     <section className="bg-hero-gradient pt-20 pb-16 lg:py-32 relative overflow-hidden">
@@ -15,6 +17,11 @@ const HeroSection = () => {
       </div>
       
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+{/* Logo */}
+
+
+
+
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="mb-12 lg:mb-0">
@@ -28,6 +35,7 @@ const HeroSection = () => {
               <span className="text-white text-sm font-medium">AI-Powered Health Analysis</span>
             </motion.div>
 
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -39,6 +47,7 @@ const HeroSection = () => {
               & Hidden Risks
             </motion.h1>
 
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -47,6 +56,7 @@ const HeroSection = () => {
             >
               Our smart browser extension analyzes any product in real-time, revealing health benefits and potential risks to help you make informed decisions.
             </motion.p>
+
 
             {/* Feature Pills */}
             <motion.div
@@ -65,6 +75,7 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
+
             {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -79,11 +90,12 @@ const HeroSection = () => {
                 </Button>
               </motion.div>
               <motion.div>
-                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="border-white/30 text-blue-600 hover:bg-white/10 w-full sm:w-auto">
                   Watch Demo
                 </Button>
               </motion.div>
             </motion.div>
+
 
             {/* Trust Indicators */}
             <motion.div
@@ -103,6 +115,7 @@ const HeroSection = () => {
             </motion.div>
           </div>
 
+
           {/* Right Content - Health Dashboard Mockup */}
           <div className="relative">
             <HealthDashboardMockup />
@@ -112,5 +125,6 @@ const HeroSection = () => {
     </section>
   );
 };
+
 
 export default HeroSection;
