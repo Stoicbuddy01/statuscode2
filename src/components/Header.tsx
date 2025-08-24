@@ -27,9 +27,9 @@ const Header = () => {
       </div>
 
       {/* Top Right - Get Started Button */}
-      <div className="fixed top-6 right-6 z-50">
+      <div className="fixed top-6 right-6 z-50 color-white-text">
         <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-health-primary to-purple-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-300"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-health-primary to-white rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-300"></div>
           <Link to="/user-input">
             <Button className="relative bg-health-primary/90 hover:bg-health-primary text-white backdrop-blur-xl rounded-2xl px-6 py-3 shadow-xl border border-white/20 transition-all duration-300 hover:scale-105 group">
               Get Started
