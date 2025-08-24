@@ -3,28 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import img22 from '@/images/img22.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios'; // Import axios for potential future API calls, or for your ConfirmDetails component
+
+// UI Components
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+
+// Lucide Icons
 import { User, HeartPulse, Leaf, ShieldAlert, Weight, Ruler, Lock, CheckCircle, BarChart2, Mail, Phone, MapPin } from 'lucide-react';
 
 // This defines the complete structure of our form data, ensuring type safety
@@ -37,37 +30,45 @@ const initialFormData = {
     bloodPressure: '', bloodSugar: '', cholesterol: '',
     conditions: [] as string[], // Explicitly type as an array of strings
     otherConditions: '', allergiesMedications: '', surgeries: '',
+    // Consent for medical info
+    consent: false, // This is a boolean
     // Lifestyle
     activityLevel: 'moderately-active', dietaryPreference: '', smoking: 'non-smoker', 
     alcohol: 'none', sleep: '',
-    // Consent
-    consent: false, // This is a boolean
 };
+
+// Define a type for our form data for better type inference with useState
+type FormData = typeof initialFormData;
 
 const UserInput = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
     // If the user comes back from the confirmation page, their data will be in location.state
-    const [formData, setFormData] = useState(location.state || initialFormData);
+    // Otherwise, use initialFormData
+    const [formData, setFormData] = useState<FormData>(location.state as FormData || initialFormData);
 
     // --- STATE HANDLERS ---
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { id, value } = e.target;
-        setFormData((prev: typeof initialFormData) => ({ ...prev, [id]: value }));
+        const { id, value, type, checked } = e.target as HTMLInputElement; // Cast for checkbox/radio type checking
+        // Checkboxes and radio buttons typically handled by specific functions, but for input[type="text", "date", "number", "email", "tel"] and textarea, this works.
+        setFormData((prev) => ({ ...prev, [id]: value }));
     };
 
-    const handleValueChange = (id: string, value: string) => {
-        setFormData((prev: typeof initialFormData) => ({ ...prev, [id]: value }));
+    const handleValueChange = (id: keyof FormData, value: string | number) => {
+        // This handler is for ShadCN components like Select, RadioGroup
+        setFormData((prev) => ({ ...prev, [id]: value }));
     };
 
-    const handleCheckedChange = (id: string, checked: boolean) => {
-        setFormData((prev: typeof initialFormData) => ({ ...prev, [id]: checked }));
+    const handleCheckedChange = (id: keyof FormData, checked: boolean) => {
+        // This handler is specifically for the single 'consent' checkbox
+        setFormData((prev) => ({ ...prev, [id]: checked }));
     };
     
     const handleCheckboxGroupChange = (condition: string, checked: boolean) => {
-        setFormData((prev: typeof initialFormData) => ({
+        // This handler is for the 'conditions' array checkbox group
+        setFormData((prev) => ({
             ...prev,
             conditions: checked 
                 ? [...prev.conditions, condition] 
@@ -77,19 +78,26 @@ const UserInput = () => {
 
     // --- END OF HANDLERS ---
 
+    // Effect to calculate BMI whenever height or weight changes
     useEffect(() => {
-        if (formData.height && formData.weight) {
-            const heightInMeters = Number(formData.height) / 100;
-            const bmiValue = (Number(formData.weight) / (heightInMeters * heightInMeters)).toFixed(2);
-            setFormData((prev: typeof initialFormData) => ({ ...prev, bmi: bmiValue }));
+        const heightNum = Number(formData.height);
+        const weightNum = Number(formData.weight);
+
+        if (heightNum > 0 && weightNum > 0) {
+            const heightInMeters = heightNum / 100; // Convert cm to meters
+            const bmiValue = (weightNum / (heightInMeters * heightInMeters)).toFixed(2);
+            setFormData((prev) => ({ ...prev, bmi: bmiValue }));
         } else {
-            setFormData((prev: typeof initialFormData) => ({ ...prev, bmi: '' }));
+            setFormData((prev) => ({ ...prev, bmi: '' })); // Clear BMI if input is invalid
         }
     }, [formData.height, formData.weight]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        navigate('/confirm-details', { state: formData });
+        // IMPORTANT: The actual API call to your Express backend should happen
+        // in the /confirm-details page, after the user has reviewed and explicitly
+        // confirmed the data. This page only passes the data forward for review.
+        navigate('/confirm-details', { state: formData });  
     };
 
     return (
@@ -181,7 +189,14 @@ const UserInput = () => {
                                 <Alert variant="destructive" className="bg-red-50 border-red-200">
                                     <ShieldAlert className="h-4 w-4" /><AlertTitle className="font-semibold">Explicit Consent Required</AlertTitle><AlertDescription>By filling this section, you consent to providing sensitive medical data for analysis.</AlertDescription>
                                 </Alert>
-                                <div className="flex items-center space-x-2"><Checkbox id="consent" checked={formData.consent} onCheckedChange={(checked) => handleCheckedChange('consent', checked as boolean)} /><Label htmlFor="consent" className="font-normal text-sm text-gray-700 select-none">I consent to providing my medical information.</Label></div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox 
+                                        id="consent" 
+                                        checked={formData.consent} 
+                                        onCheckedChange={(checked) => handleCheckedChange('consent', checked as boolean)} 
+                                    />
+                                    <Label htmlFor="consent" className="font-normal text-sm text-gray-700 select-none">I consent to providing my medical information.</Label>
+                                </div>
                                 
                                 <div className={`space-y-6 transition-opacity duration-300 ${formData.consent ? 'opacity-100' : 'opacity-50 pointer-events-none'}`}>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -193,7 +208,15 @@ const UserInput = () => {
                                         <Label>Chronic Conditions (Select all that apply)</Label>
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                             {['Diabetes', 'Hypertension', 'Thyroid issues', 'Asthma', 'PCOS/PCOD', 'Heart conditions', 'Arthritis'].map(condition => (
-                                                <div key={condition} className="flex items-center space-x-2"><Checkbox id={condition} checked={formData.conditions.includes(condition)} onCheckedChange={(checked) => handleCheckboxGroupChange(condition, checked as boolean)} disabled={!formData.consent} /><Label htmlFor={condition} className="font-normal">{condition}</Label></div>
+                                                <div key={condition} className="flex items-center space-x-2">
+                                                    <Checkbox 
+                                                        id={condition} 
+                                                        checked={formData.conditions.includes(condition)} 
+                                                        onCheckedChange={(checked) => handleCheckboxGroupChange(condition, checked as boolean)} 
+                                                        disabled={!formData.consent} 
+                                                    />
+                                                    <Label htmlFor={condition} className="font-normal">{condition}</Label>
+                                                </div>
                                             ))}
                                         </div>
                                         <div className="space-y-2 pt-2"><Label htmlFor="otherConditions">Other Conditions</Label><Input id="otherConditions" value={formData.otherConditions} onChange={handleChange} placeholder="Specify any other conditions" disabled={!formData.consent} /></div>
