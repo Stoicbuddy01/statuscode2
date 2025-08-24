@@ -25,10 +25,14 @@ const Header = () => {
       <div className="fixed top-6 right-6 z-50">
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-health-primary to-purple-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-300"></div>
-          <Button className="relative bg-health-primary/90 hover:bg-health-primary text-white backdrop-blur-xl rounded-2xl px-6 py-3 shadow-xl border border-white/20 transition-all duration-300 hover:scale-105 group">
-            Get Started
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-          </Button>
+          {/* --- CHANGE: Wrapped Button with Link --- */}
+          <Link to="/user-input">
+            <Button className="relative bg-health-primary/90 hover:bg-health-primary text-white backdrop-blur-xl rounded-2xl px-6 py-3 shadow-xl border border-white/20 transition-all duration-300 hover:scale-105 group">
+              Get Started
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Button>
+          </Link>
+          {/* --- END CHANGE --- */}
         </div>
       </div>
 
